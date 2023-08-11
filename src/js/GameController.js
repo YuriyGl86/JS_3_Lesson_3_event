@@ -11,8 +11,7 @@ export default class GameController {
 
     this.placeGoblin();
     this.interval = setInterval(() => {
-      debugger
-      this.gamePlay.resetCoursor()
+      this.gamePlay.resetCoursor();
       this.placeGoblin();
     }, 1000);
   }
@@ -49,12 +48,11 @@ export default class GameController {
     }
   }
 
-  enterHandler(idx){
-    if (idx === this.gameState.currentCell){
-      console.log('гоблин')
-      this.gamePlay.setCursor(idx)
+  enterHandler(idx) {
+    if (idx === this.gameState.currentCell) {
+      this.gamePlay.setCursor(idx);
     } else {
-      this.gamePlay.resetCoursor(idx)
+      this.gamePlay.resetCoursor(idx);
     }
   }
 }

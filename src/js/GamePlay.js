@@ -27,9 +27,9 @@ export default class GamePlay {
   activateEventListeners() {
     this.container.addEventListener('click', (event) => this.onClickHandler(event));
     this.cells.forEach((cell) => {
-      cell.addEventListener('mouseenter', (event) => this.onMouseEnterHandler(event))
-      cell.addEventListener('mouseleave', (event) => this.onMouseLeaveHandler(event))
-    })
+      cell.addEventListener('mouseenter', (event) => this.onMouseEnterHandler(event));
+      cell.addEventListener('mouseleave', (event) => this.onMouseLeaveHandler(event));
+    });
   }
 
   onClickHandler(event) {
@@ -37,25 +37,23 @@ export default class GamePlay {
     this.cellClickListener.call(null, idx);
   }
 
-  onMouseEnterHandler(event){
+  onMouseEnterHandler(event) {
     const idx = this.cells.indexOf(event.target.closest('td'));
     this.cellEnterListener.call(null, idx);
   }
 
-  onMouseLeaveHandler(event){
+  onMouseLeaveHandler(event) {
     const idx = this.cells.indexOf(event.target.closest('td'));
     this.cells[idx].classList.remove('hammer');
   }
 
   setCursor(idx) {
-    console.log(this.cells[idx])
     this.cells[idx].classList.add('hammer');
   }
 
-  resetCoursor(){
-    
+  resetCoursor() {
     this.cells.forEach((cell) => {
-      cell.classList.remove('hammer')
-    })
+      cell.classList.remove('hammer');
+    });
   }
 }

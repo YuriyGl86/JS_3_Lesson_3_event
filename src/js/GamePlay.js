@@ -8,19 +8,14 @@ export default class GamePlay {
       this.container = container;
     }
 
-    // this.currentCell = undefined;
     this.cells = Array.from(this.container.querySelectorAll('td'));
     this.img = GamePlay.getImg();
-    // this.placeGoblin();
+    this.cellClickListener = undefined;
+    this.cellEnterListener = undefined;
+    this.cellLeaveListener = undefined;
+    this.catchElem = document.querySelector('.catched');
+    this.missedElem = document.querySelector('.missed');
   }
-
-  // getRandom() {
-  //   let random = Math.floor(Math.random() * this.cells.length);
-  //   while (random === this.currentCell) {
-  //     random = Math.floor(Math.random() * this.cells.length);
-  //   }
-  //   return random;
-  // }
 
   static getImg() {
     const img = document.createElement('img');
@@ -29,9 +24,14 @@ export default class GamePlay {
     return img;
   }
 
-  // placeGoblin() {
-  //   const randomPosition = this.getRandom();
-  //   this.cells[randomPosition].appendChild(this.img);
-  //   this.currentCell = randomPosition;
-  // }
+  activateEventListeners() {
+    this.container.addEventListener('click', (event) => this.onClickHandler(event));
+    // this.container.addEventListener('mouseenter', (event) => this.onMouseEnterHandler(event))
+    // this.container.addEventListener('mouseleave', (event) => this.onMouseLeaveHandler(event))
+  }
+
+  onClickHandler(event) {
+    const idx = this.cells.indexOf(event.target.closest('td'));
+    this.cellClickListener.call(null, idx);
+  }
 }

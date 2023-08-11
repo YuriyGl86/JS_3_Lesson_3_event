@@ -5,10 +5,13 @@ export default class GameController {
   }
 
   init() {
+    this.gamePlay.cellClickListener = this.clickHandler.bind(this);
+    this.gamePlay.activateEventListeners();
+
     this.placeGoblin();
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.placeGoblin();
-    }, 700);
+    }, 1000);
   }
 
   getRandom() {
@@ -23,5 +26,23 @@ export default class GameController {
     const randomPosition = this.getRandom();
     this.gamePlay.cells[randomPosition].appendChild(this.gamePlay.img);
     this.gameState.currentCell = randomPosition;
+  }
+
+  clickHandler(idx) {
+    if (idx === this.gameState.currentCell) {
+      this.gameState.catched += 1;
+      this.gamePlay.catchElem.innerText = this.gameState.catched;
+      if (this.gameState.catched === 5) {
+        clearInterval(this.interval);
+        alert('Game over! You win!'); // eslint-disable-line no-alert
+      }
+    } else {
+      this.gameState.missed += 1;
+      this.gamePlay.missedElem.innerText = this.gameState.missed;
+      if (this.gameState.missed === 5) {
+        clearInterval(this.interval);
+        alert('Game over! you have lost'); // eslint-disable-line no-alert
+      }
+    }
   }
 }

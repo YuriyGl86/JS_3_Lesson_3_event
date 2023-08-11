@@ -6,10 +6,13 @@ export default class GameController {
 
   init() {
     this.gamePlay.cellClickListener = this.clickHandler.bind(this);
+    this.gamePlay.cellEnterListener = this.enterHandler.bind(this);
     this.gamePlay.activateEventListeners();
 
     this.placeGoblin();
     this.interval = setInterval(() => {
+      debugger
+      this.gamePlay.resetCoursor()
       this.placeGoblin();
     }, 1000);
   }
@@ -43,6 +46,15 @@ export default class GameController {
         clearInterval(this.interval);
         alert('Game over! you have lost'); // eslint-disable-line no-alert
       }
+    }
+  }
+
+  enterHandler(idx){
+    if (idx === this.gameState.currentCell){
+      console.log('гоблин')
+      this.gamePlay.setCursor(idx)
+    } else {
+      this.gamePlay.resetCoursor(idx)
     }
   }
 }
